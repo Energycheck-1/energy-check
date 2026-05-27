@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Energy Check | Independent Energy Compliance & Consultancy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0a2540;
+    --accent: #f5a623;
+    --accent2: #00c9a7;
+    --light: #f4f7fb;
+    --white: #ffffff;
+    --text: #2d3748;
+    --muted: #718096;
+    --border: #e2e8f0;
+    --hero-bg: #061a30;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Lato', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+
+  /* TOP BAR */
+  .topbar { background: var(--primary); color: #a0aec0; font-size: 13px; padding: 8px 0; }
+  .topbar .inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+  }
+  .topbar a { color: var(--accent); text-decoration: none; }
+  .topbar .contact-items { display: flex; gap: 24px; align-items: center; }
+  .topbar .portal-links { display: flex; gap: 16px; }
+  .topbar .portal-links a {
+    background: rgba(245,166,35,0.15); color: var(--accent);
+    padding: 3px 10px; border-radius: 3px; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.04em; transition: background 0.2s; display: flex; align-items: center; gap: 6px;
+  }
+  .topbar .portal-links a:hover { background: rgba(245,166,35,0.3); }
+  .topbar .portal-links a.linkedin-link {
+    background: rgba(0,119,181,0.2); color: #0a66c2;
+    border: 1px solid rgba(10,102,194,0.3);
+  }
+  .topbar .portal-links a.linkedin-link:hover { background: rgba(0,119,181,0.35); }
+  .linkedin-icon { width: 16px; height: 16px; fill: #0a66c2; flex-shrink: 0; }
+
+  /* NAV */
+  nav {
+    background: var(--white); border-bottom: 3px solid var(--accent);
+    position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(10,37,64,0.08);
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between; height: 70px;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo-icon {
+    width: 44px; height: 44px; background: var(--primary); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-icon svg { width: 26px; height: 26px; }
+  .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+  .logo-name {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 800;
+    color: var(--primary); letter-spacing: 0.02em; text-transform: uppercase;
+  }
+  .logo-name span { color: var(--accent); }
+  .logo-tag { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+
+  .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+  .nav-links > li { position: relative; }
+  .nav-links > li > a {
+    display: block; padding: 8px 14px; font-size: 14px; font-weight: 700;
+    color: var(--primary); text-decoration: none; text-transform: uppercase;
+    letter-spacing: 0.06em; border-radius: 4px; transition: color 0.2s, background 0.2s;
+  }
+  .nav-links > li > a:hover { color: var(--accent); background: var(--light); }
+  .nav-links > li > a.active { color: var(--accent); }
+
+  .dropdown {
+    display: none; position: absolute; top: calc(100% + 6px); left: 0;
+    background: var(--white); border: 1px solid var(--border);
+    border-top: 3px solid var(--accent); box-shadow: 0 8px 24px rgba(10,37,64,0.12);
+    min-width: 240px; z-index: 200; border-radius: 0 0 6px 6px;
+  }
+  .nav-links > li:hover .dropdown { display: block; }
+  .dropdown a {
+    display: block; padding: 11px 18px; font-size: 13px; font-weight: 600;
+    color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border);
+    transition: background 0.15s, color 0.15s; letter-spacing: 0.02em;
+  }
+  .dropdown a:last-child { border-bottom: none; }
+  .dropdown a:hover { background: var(--light); color: var(--accent); padding-left: 24px; }
+
+  /* HERO */
+  .hero { background: var(--hero-bg); color: white; position: relative; overflow: hidden; min-height: 520px; display: flex; align-items: center; }
+  .hero-bg-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(245,166,35,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(0,201,167,0.06) 0%, transparent 40%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto; padding: 80px 24px;
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .hero-content h1 {
+    font-family: 'Barlow Condensed', sans-serif; font-size: clamp(36px, 5vw, 58px);
+    font-weight: 800; line-height: 1.05; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 20px;
+  }
+  .hero-content h1 span { color: var(--accent); }
+  .hero-content p { font-size: 16px; color: #a0aec0; line-height: 1.7; max-width: 480px; margin-bottom: 32px; }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: var(--primary); font-weight: 800; font-size: 13px;
+    letter-spacing: 0.08em; text-transform: uppercase; padding: 14px 28px; border-radius: 4px;
+    text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block;
+  }
+  .btn-primary:hover { background: #f0b849; transform: translateY(-1px); }
+  .btn-outline {
+    border: 2px solid rgba(255,255,255,0.3); color: white; font-weight: 700; font-size: 13px;
+    letter-spacing: 0.08em; text-transform: uppercase; padding: 14px 28px; border-radius: 4px;
+    text-decoration: none; transition: border-color 0.2s, background 0.2s; display: inline-block;
+  }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.08); }
+
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .stat-card {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 24px 20px; text-align: center; transition: background 0.2s;
+  }
+  .stat-card:hover { background: rgba(255,255,255,0.08); }
+  .stat-card .icon { font-size: 28px; margin-bottom: 10px; }
+  .stat-card .label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .stat-card .desc { font-size: 13px; color: #a0aec0; line-height: 1.4; }
+
+  /* SERVICES TICKER */
+  .services-strip { background: var(--accent); overflow: hidden; padding: 0; height: 46px; display: flex; align-items: center; }
+  .services-ticker { display: flex; animation: ticker 28s linear infinite; white-space: nowrap; gap: 0; }
+  .services-ticker span {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary);
+    padding: 0 32px; border-right: 2px solid rgba(10,37,64,0.2);
+  }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTION COMMON */
+  section { padding: 72px 0; }
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .section-label { font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif; font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800; color: var(--primary); text-transform: uppercase;
+    letter-spacing: 0.02em; line-height: 1.1; margin-bottom: 16px;
+  }
+  .section-sub { font-size: 16px; color: var(--muted); max-width: 600px; line-height: 1.7; }
+
+  /* SERVICES GRID */
+  .services-bg { background: var(--light); }
+  .services-header { text-align: center; margin-bottom: 48px; }
+  .services-header .section-sub { margin: 0 auto; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+  .service-card {
+    background: var(--white); border-radius: 8px; border: 1px solid var(--border);
+    overflow: hidden; transition: box-shadow 0.2s, transform 0.2s;
+    text-decoration: none; color: inherit; display: flex; flex-direction: column;
+  }
+  .service-card:hover { box-shadow: 0 8px 32px rgba(10,37,64,0.12); transform: translateY(-4px); }
+  .service-card-top { height: 8px; }
+  .service-card-body { padding: 28px 24px 24px; flex: 1; display: flex; flex-direction: column; }
+  .service-icon { width: 52px; height: 52px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; }
+  .service-card h3 {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700;
+    color: var(--primary); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 10px;
+  }
+  .service-card p { font-size: 14px; color: var(--muted); line-height: 1.6; flex: 1; }
+  .service-card .find-more {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 18px;
+    font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--accent); text-decoration: none;
+  }
+  .service-card .find-more:hover { gap: 10px; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .about-visual { background: var(--primary); border-radius: 12px; padding: 40px; color: white; position: relative; overflow: hidden; }
+  .about-visual::before {
+    content: ''; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(245,166,35,0.15) 0%, transparent 70%); border-radius: 50%;
+  }
+  .about-visual h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 24px; color: var(--accent); }
+  .about-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .about-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #cbd5e0; line-height: 1.5; }
+  .about-list li .check {
+    width: 20px; height: 20px; background: var(--accent2); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    margin-top: 1px; font-size: 11px; color: var(--primary); font-weight: 800;
+  }
+  .about-text h2 { margin-bottom: 20px; }
+  .about-text p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+  .about-text a { color: var(--accent); font-weight: 700; text-decoration: none; }
+  .about-text a:hover { text-decoration: underline; }
+
+  /* EXTENDED SERVICES */
+  .extended-services { background: var(--primary); color: white; }
+  .extended-services .section-title { color: white; }
+  .ext-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; }
+  .ext-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+  .ext-item {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px; padding: 14px 16px; font-size: 13px; font-weight: 600;
+    color: #cbd5e0; letter-spacing: 0.02em; transition: background 0.2s, color 0.2s; cursor: default;
+  }
+  .ext-item:hover { background: rgba(245,166,35,0.1); color: var(--accent); }
+  .ext-item .dot { width: 8px; height: 8px; background: var(--accent2); border-radius: 50%; flex-shrink: 0; }
+
+  /* CTA BAND */
+  .cta-band { background: var(--accent); padding: 48px 0; text-align: center; }
+  .cta-band h2 {
+    font-family: 'Barlow Condensed', sans-serif; font-size: clamp(24px, 4vw, 38px);
+    font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px;
+  }
+  .cta-band p { font-size: 16px; color: rgba(10,37,64,0.7); margin-bottom: 28px; }
+  .btn-dark {
+    background: var(--primary); color: white; font-weight: 800; font-size: 13px;
+    letter-spacing: 0.08em; text-transform: uppercase; padding: 14px 36px; border-radius: 4px;
+    text-decoration: none; display: inline-block; transition: background 0.2s;
+  }
+  .btn-dark:hover { background: #0d3060; }
+
+  /* ACCREDITATIONS */
+  .accred-section { background: var(--light); }
+  .accred-header { text-align: center; margin-bottom: 40px; }
+  .accred-row { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .accred-badge {
+    background: white; border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 24px; font-size: 12px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--muted); min-width: 120px; text-align: center;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .accred-badge:hover { border-color: var(--accent); color: var(--primary); }
+
+  /* CONTACT */
+  .contact-section { background: var(--white); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .contact-info h2 { margin-bottom: 20px; }
+  .contact-info p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 28px; }
+  .contact-detail { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; font-size: 14px; color: var(--text); }
+  .contact-detail .icon-box {
+    width: 38px; height: 38px; background: var(--light); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+  }
+  .contact-detail .icon-box.linkedin-box {
+    background: #e8f0fb;
+  }
+  .contact-detail .icon-box svg { width: 20px; height: 20px; fill: #0a66c2; }
+  .contact-detail strong { display: block; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .contact-detail a { color: var(--primary); text-decoration: none; font-weight: 600; }
+  .contact-detail a:hover { color: var(--accent); }
+
+  .contact-form { background: var(--light); border-radius: 10px; padding: 36px; border: 1px solid var(--border); }
+  .contact-form h3 {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800;
+    text-transform: uppercase; color: var(--primary); letter-spacing: 0.04em; margin-bottom: 24px;
+  }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 5px;
+    font-family: 'Lato', sans-serif; font-size: 14px; color: var(--text);
+    background: white; transition: border-color 0.2s; outline: none;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .submit-btn {
+    width: 100%; padding: 14px; background: var(--primary); color: white; border: none;
+    border-radius: 5px; font-family: 'Lato', sans-serif; font-size: 13px; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; margin-top: 8px;
+  }
+  .submit-btn:hover { background: #0d3060; }
+
+  /* FOOTER */
+  footer { background: var(--primary); color: #a0aec0; padding: 60px 0 0; }
+  .footer-grid {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px;
+  }
+  .footer-brand .logo { margin-bottom: 16px; }
+  .footer-brand p { font-size: 13px; line-height: 1.7; color: #718096; max-width: 280px; }
+  .footer-col h4 {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em; color: white; margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 9px; }
+  .footer-col ul li a { color: #718096; text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--accent); }
+  .footer-col .contact-line { font-size: 13px; color: #718096; margin-bottom: 9px; display: flex; align-items: center; gap: 8px; }
+  .footer-col .contact-line a { color: var(--accent); text-decoration: none; }
+  .footer-col .contact-line a:hover { color: white; }
+  .footer-col .contact-line svg { width: 14px; height: 14px; fill: #0a66c2; flex-shrink: 0; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    max-width: 1200px; margin: 0 auto; padding: 20px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; flex-wrap: wrap; gap: 8px;
+  }
+  .footer-bottom a { color: #718096; text-decoration: none; }
+  .footer-bottom a:hover { color: var(--accent); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .hero-inner, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .hero-content h1 { font-size: 38px; }
+  }
+  @media (max-width: 600px) {
+    .topbar .inner { flex-direction: column; }
+    .nav-links { display: none; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="inner">
+    <div class="contact-items">
+      <span>✉ <a href="mailto:energycheck@outlook.com">energycheck@outlook.com</a></span>
+    </div>
+    <div class="portal-links">
+      <a href="#">Client Portal Login</a>
+      <a href="#">Contractor Portal Login</a>
+      <a href="https://www.linkedin.com/in/ez-williams-b6760764/" target="_blank" rel="noopener" class="linkedin-link">
+        <svg class="linkedin-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 2C13 2 7 8.5 7 14a6 6 0 0012 0c0-2-1-4-2.5-5.5 0 0 0 3-2.5 4 0-3-1-6.5-1-10.5z" fill="#f5a623"/>
+          <path d="M13 14c0 0-2 1-2 3a2 2 0 004 0c0-1.5-2-3-2-3z" fill="#fff" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <span class="logo-name">Energy<span>Check</span></span>
+        <span class="logo-tag">Independent Gas &amp; Energy Trainer &amp; Consultant</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="#">About Us</a></li>
+      <li>
+        <a href="#">Auditing &amp; Consultancy ▾</a>
+        <div class="dropdown">
+          <a href="#">Gas Safety Management</a>
+          <a href="#">Renewable Energy Assessment</a>
+        </div>
+      </li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- SERVICES TICKER -->
+<div class="services-strip">
+  <div class="services-ticker">
+    <span>Gas Safety</span>
+    <span>Renewables</span>
+    <span>Risk Assessments</span>
+    <span>Project Management</span>
+    <span>Gas Training</span>
+    <span>Energy Consultancy</span>
+    <!-- Duplicate for seamless scroll -->
+    <span>Gas Safety</span>
+    <span>Renewables</span>
+    <span>Risk Assessments</span>
+    <span>Project Management</span>
+    <span>Gas Training</span>
+    <span>Energy Consultancy</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="section-label" style="color:#00c9a7;">Independent Gas &amp; Energy Trainer &amp; Consultant</div>
+      <h1>Your Energy<br><span>Compliance</span><br>Experts</h1>
+      <p>Energy Check provides independent, multi-discipline energy compliance consultancy — helping organisations reduce risk, meet regulations, and achieve their sustainability goals.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">Get a Free Consultation</a>
+        <a href="#services" class="btn-outline">Our Services</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="icon">
+          <svg viewBox="0 0 40 40" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 4C20 4 11 13 11 21a9 9 0 0018 0c0-3-1.5-6-3.8-8.3 0 0 0 4.5-3.7 6 0-4.5-1.5-9.7-1.5-14.7z" fill="#f5a623"/>
+            <path d="M20 21c0 0-3 1.5-3 4.5a3 3 0 006 0c0-2.2-3-4.5-3-4.5z" fill="#fff" opacity="0.7"/>
+          </svg>
+        </div>
+        <div class="label">Gas Safety</div>
+        <div class="desc">Expert domestic &amp; commercial gas safety management</div>
+      </div>
+      <div class="stat-card">
+        <div class="icon">🌿</div>
+        <div class="label">Renewables</div>
+        <div class="desc">Heat pump &amp; renewable energy assessments</div>
+      </div>
+      <div class="stat-card">
+        <div class="icon">🔍</div>
+        <div class="label">Risk Assessments</div>
+        <div class="desc">Independent audits and compliance risk management</div>
+      </div>
+      <div class="stat-card">
+        <div class="icon">📐</div>
+        <div class="label">Consultancy</div>
+        <div class="desc">Expert advice across all energy disciplines</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-bg" id="services">
+  <div class="section-inner">
+    <div class="services-header">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Our Core Services</h2>
+      <p class="section-sub">We provide expert independent consultancy across all energy and mechanical disciplines to assist with statutory requirements across the public and private sector.</p>
+    </div>
+    <div class="services-grid">
+
+      <a href="#" class="service-card">
+        <div class="service-card-top" style="background:#4299e1;"></div>
+        <div class="service-card-body">
+          <div class="service-icon" style="background:#ebf4ff; position:relative;">
+            <svg viewBox="0 0 40 40" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 4C20 4 11 13 11 21a9 9 0 0018 0c0-3-1.5-6-3.8-8.3 0 0 0 4.5-3.7 6 0-4.5-1.5-9.7-1.5-14.7z" fill="#4299e1"/>
+              <path d="M20 21c0 0-3 1.5-3 4.5a3 3 0 006 0c0-2.2-3-4.5-3-4.5z" fill="#90cdf4" opacity="0.8"/>
+            </svg>
+          </div>
+          <h3>Gas Safety Management</h3>
+          <p>Expert independent advice on domestic and commercial gas safety, covering the Gas Safety (Installation and Use) Regulations 2018.</p>
+          <span class="find-more">Find out more →</span>
+        </div>
+      </a>
+
+      <a href="#" class="service-card">
+        <div class="service-card-top" style="background:#48bb78;"></div>
+        <div class="service-card-body">
+          <div class="service-icon" style="background:#f0fff4;">🌿</div>
+          <h3>Renewable Energy Assessment</h3>
+          <p>Feasibility studies and technical assessments for solar PV, heat pumps, and other renewable technologies to support your sustainability goals.</p>
+          <span class="find-more">Find out more →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / COMMITMENT -->
+<section>
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual">
+        <h3>Our Commitment to You</h3>
+        <ul class="about-list">
+          <li><span class="check">✓</span> Fully independent — no commercial ties to contractors or suppliers</li>
+          <li><span class="check">✓</span> Unbiased reports free from conflicts of interest</li>
+          <li><span class="check">✓</span> Findings that are truthful, accurate, and sufficient</li>
+          <li><span class="check">✓</span> Due professional care in every assessment</li>
+          <li><span class="check">✓</span> Serving public and private sector clients nationwide</li>
+          <li><span class="check">✓</span> Qualified, experienced consultants across all disciplines</li>
+          <li><span class="check">✓</span> CPD-accredited programmes</li>
+        </ul>
+      </div>
+      <div class="about-text">
+        <div class="section-label">About Energy Check</div>
+        <h2 class="section-title">Independent Multi-Discipline Energy Consultancy</h2>
+        <p>At Energy Check, our highly trained consultants provide expert advice, risk assessments, investigations, project management, and operational and management system audits. Our services span a comprehensive range of energy disciplines to assist with statutory requirements across the public and private sector.</p>
+        <p>We take pride in performing our work with integrity — remaining fair and unbiased in all dealings, sensitive to any influences that may be exerted on our judgement. We work with due professional care to ensure our findings reflect truthfully and accurately.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div class="section-inner">
+    <h2>We Have One Objective</h2>
+    <p>To assist you with your Statutory Requirements and give you complete Peace of Mind</p>
+    <a href="#contact" class="btn-dark">Let's Talk!</a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-label">Get In Touch</div>
+        <h2 class="section-title">Talk to Our Experts</h2>
+        <p>Whether you need gas safety management or a renewable energy assessment, our team is ready to help. Get in touch for a no-obligation consultation.</p>
+        <div class="contact-detail">
+          <div class="icon-box">✉</div>
+          <div>
+            <strong>Email</strong>
+            <a href="mailto:energycheck@outlook.com">energycheck@outlook.com</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon-box linkedin-box">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </div>
+          <div>
+            <strong>LinkedIn</strong>
+            <a href="https://www.linkedin.com/in/ez-williams-b6760764/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon-box">📍</div>
+          <div>
+            <strong>Areas Covered</strong>
+            <span>London, Hertfordshire, Bedfordshire,<br>Buckinghamshire &amp; Cambridgeshire</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:260px;">
+        <div style="font-size:48px; margin-bottom:20px;">✉️</div>
+        <h3 style="margin-bottom:12px;">For All Enquiries</h3>
+        <p style="font-size:15px; color:var(--muted); line-height:1.7; margin-bottom:28px; max-width:320px;">Simply send us an email and we'll get back to you as soon as possible.</p>
+        <a href="mailto:energycheck@outlook.com" class="btn-dark" style="font-size:14px; letter-spacing:0.06em;">energycheck@outlook.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 2C13 2 7 8.5 7 14a6 6 0 0012 0c0-2-1-4-2.5-5.5 0 0 0 3-2.5 4 0-3-1-6.5-1-10.5z" fill="#f5a623"/>
+            <path d="M13 14c0 0-2 1-2 3a2 2 0 004 0c0-1.5-2-3-2-3z" fill="#fff" opacity="0.7"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name" style="color:white;">Energy<span>Check</span></span>
+          <span class="logo-tag">Independent Gas &amp; Energy Trainer &amp; Consultant</span>
+        </div>
+      </a>
+      <p>Providing independent multi-discipline energy compliance consultancy to public and private sector clients since 2008.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Gas Safety Management</a></li>
+        <li><a href="#">Renewable Energy Assessment</a></li>
+        <li><a href="#">Project Management</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">Accreditations</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <div class="contact-line">✉ <a href="mailto:energycheck@outlook.com">energycheck@outlook.com</a></div>
+      <div class="contact-line">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        <a href="https://www.linkedin.com/in/ez-williams-b6760764/" target="_blank" rel="noopener">LinkedIn Profile</a>
+      </div>
+      <div class="contact-line" style="align-items:flex-start;">📍 London, Hertfordshire, Bedfordshire,<br>Buckinghamshire &amp; Cambridgeshire</div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Energy Check Ltd. All rights reserved.</span>
+    <span><a href="#">Privacy Policy</a> · <a href="#">Terms of Use</a> · <a href="#">Cookie Policy</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
